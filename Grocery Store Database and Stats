@@ -1,0 +1,34 @@
+--Create a grocery store database
+
+CREATE TABLE Store_Items (id INTEGER PRIMARY KEY, Name TEXT, Color TEXT, Quantity INTEGER, Department TEXT, Price INTEGER);
+
+INSERT INTO Store_Items VALUES (1, "T-Shirt", "Red", 6, "Clothing", 9.99);
+INSERT INTO Store_Items VALUES (2, "T-Shirt", "Blue", 8, "Clothing", 9.99);
+INSERT INTO Store_Items VALUES (3, "Bicycle", "Black", 2, "Toys", 39.99);
+INSERT INTO Store_Items VALUES (4, "Golf Bag", "Green", 6, "Sporting Goods", 29.99);
+INSERT INTO Store_Items VALUES (5, "Golf Bag", "Black", 9, "Sporting Goods", 29.99);
+INSERT INTO Store_Items VALUES (6, "Pants", "Orange", 2, "Clothing", 11.99);
+INSERT INTO Store_Items VALUES (7, "Pants", "White", 4, "Clothing", 11.99);
+INSERT INTO Store_Items VALUES (8, "Pants", "Black", 8, "Clothing", 11.99);
+INSERT INTO Store_Items VALUES (9, "Shorts", "Blue", 5, "Clothing", 8.99);
+INSERT INTO Store_Items VALUES (10, "Shorts", "Khaki", 7, "Clothing", 8.99);
+INSERT INTO Store_Items VALUES (11, "Truck", "Red", 3, "Toys", 5.99);
+INSERT INTO Store_Items VALUES (12, "Truck", "Black", 6, "Toys", 5.99);
+INSERT INTO Store_Items VALUES (13, "Car", "White", 2, "Toys", 5.99);
+INSERT INTO Store_Items VALUES (14, "Car", "Blue", 4, "Toys", 5.99);
+INSERT INTO Store_Items VALUES (15, "Car", "Pink", 6, "Toys", 5.99);
+
+--Display the database ordered by price
+SELECT * 
+    FROM Store_Items
+        ORDER BY Price DESC;
+
+--What is the average cost of items in the store?
+SELECT ROUND(AVG(Price), 2) 
+    FROM Store_Items;
+
+--What are the 5 most purchased items and their prices?
+SELECT Name, Quantity, Price
+    FROM Store_Items
+        ORDER BY Quantity DESC
+            LIMIT 5;
