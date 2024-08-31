@@ -114,47 +114,105 @@ INSERT INTO topmovies(Rank,Title,Studio,Worldwide,Domestic,DomesticPct,Overseas,
 INSERT INTO topmovies(Rank,Title,Studio,Worldwide,Domestic,DomesticPct,Overseas,OverseasPct,Year) VALUES (100,'Tangled','BV',591.80,200.80,0.34,391.00,0.66,2010);
 
 --What was the average worldwide earnings of these movies?
-SELECT ROUND(AVG(Worldwide)) AS avg_worldwide FROM topmovies;
+
+SELECT 
+   ROUND(AVG(Worldwide)) AS avg_worldwide 
+FROM 
+   topmovies;
+
 
 --Compare the average domestic earnings to the average overseas earnings.
-SELECT ROUND(AVG(Domestic)) AS avg_domestic, ROUND(AVG(Overseas)) AS avg_overseas FROM topmovies;
+
+SELECT 
+   ROUND(AVG(Domestic)) AS avg_domestic, 
+   ROUND(AVG(Overseas)) AS avg_overseas 
+FROM 
+   topmovies;
+
 
 --List the studios that released at least one film in this database.
 
-SELECT Studio FROM topmovies GROUP BY Studio HAVING COUNT(*) >= 1;
+SELECT 
+   Studio 
+FROM 
+   topmovies 
+GROUP BY 
+   Studio 
+HAVING 
+   COUNT(*) >= 1;
+
 
 --Which movies in the database earned over 1 billion dollars worldwide?
-SELECT Title AS Earned_Over_1_Billion FROM topmovies GROUP BY Title HAVING Worldwide >= 1500;
+
+SELECT 
+   Title AS Earned_Over_1_Billion 
+FROM 
+   topmovies 
+GROUP BY 
+   Title 
+HAVING 
+   Worldwide >= 1500;
+
 
 --What years had movies released in this database?
-SELECT Year FROM topmovies GROUP BY Year HAVING COUNT(*) >= 1;
+
+SELECT 
+   Year 
+FROM 
+   topmovies 
+GROUP BY 
+   Year 
+HAVING 
+   COUNT(*) >= 1;
+
 
 --How many films were released within each decade from the 1970s to the 2010s?
-SELECT COUNT(*) AS Number_Of_Films,
-    CASE
-            WHEN Year >= 2010
-                THEN "2010s"
-            WHEN Year >= 2000
-                THEN "2000s"
-            WHEN Year >= 1990
-                THEN "1990s"
-            WHEN Year >= 1980
-                THEN "1980s"
-            WHEN Year >= 1970
-                THEN "1970s"
-    END as "Decades"
-FROM topmovies
-GROUP BY Decades;
+
+SELECT 
+   COUNT(*) AS Number_Of_Films,
+   CASE
+      WHEN Year >= 2010
+         THEN "2010s"
+      WHEN Year >= 2000
+         THEN "2000s"
+      WHEN Year >= 1990
+         THEN "1990s"
+      WHEN Year >= 1980
+         THEN "1980s"
+      WHEN Year >= 1970
+         THEN "1970s"
+   END as "Decades"
+FROM 
+   topmovies
+GROUP BY 
+   Decades;
+
 
 --How many of the top ten most earning films was released in the 2000s?
-SELECT COUNT(*) AS Number_of_Top_10_2000s_Films FROM topmovies WHERE
-    Year >= 2000
-    AND Year < 2010
-    AND Rank <= 10;
+
+SELECT 
+   COUNT(*) AS Number_of_Top_10_2000s_Films 
+FROM 
+   topmovies 
+WHERE
+   Year >= 2000
+AND 
+   Year < 2010
+AND 
+   Rank <= 10;
+
 
 --Which movies were released after the year 2000 and had a domestic earning of over 400 million or an overseas earning of over 600 million?
-SELECT Rank, Title FROM topmovies WHERE
-    year > 2000 AND
-    domestic > 400 oR
-    overseas > 600
+
+SELECT 
+   Rank, 
+   Title 
+FROM 
+   topmovies 
+WHERE
+   year > 2000 
+AND
+   domestic > 400 
+OR
+   overseas > 600;
     
