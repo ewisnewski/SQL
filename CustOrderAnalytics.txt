@@ -1,0 +1,113 @@
+-- How many sales were made in January?  Poor data, including incorrectly numbered or order number listed as "Order ID" have been filtered out.
+
+SELECT
+    COUNT(orderID) AS Num_of_January_Sales
+FROM 
+    JanSales
+WHERE
+    length(orderID) = 6
+AND
+    orderID <> 'Order ID';
+    
+
+-- How many of the January sales were for an iPhone?  Poor data, including incorrectly numbered or order number listed as "Order ID" have been filtered out.
+
+SELECT
+    COUNT(orderID) AS Num_of_January_Sales
+FROM 
+    JanSales
+WHERE
+    length(orderID) = 6
+AND
+    orderID <> 'Order ID'
+AND
+    Product = 'iPhone';
+    
+
+-- Select the customer account numbers for all orders that were placed in February.
+
+SELECT
+    DISTINCT c.acctnum AS Acct_Num
+FROM 
+    customers AS c
+INNER JOIN
+    FebSales AS f
+ON c.order_id = f.orderID
+WHERE
+    length(orderID) = 6
+AND
+    orderID <> 'Order ID';
+    
+
+-- Which product sold in Janary was the cheapest, and what was the price?
+
+SELECT
+    Product AS Cheapest_Sold,
+    price AS Cost
+FROM
+    JanSales
+GROUP BY
+    Cheapest_Sold, Cost
+ORDER BY
+    price ASC
+LIMIT
+    1;
+
+
+-- What is the total revenue for each product sold in January?
+
+SELECT
+    Product,
+    ROUND(SUM(Quantity)*price,2) AS Total_Revenue
+FROM
+    JanSales
+GROUP BY
+    Product
+ORDER BY 
+    Product ASC;
+
+
+-- Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+
+SELECT
+    Product,
+    SUM(Quantity) AS Quantity,
+    ROUND(SUM(Quantity)*price,2) AS Total_Revenue
+FROM
+    FebSales
+WHERE
+    location = '548 Lincoln St, Seattle, WA 98101';
+
+
+-- How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+
+SELECT
+   COUNT(DISTINCT c.acctnum) AS Cust_Count,
+   ROUND(AVG(f.Quantity*f.price),2) AS Avg_Spent
+FROM
+    customers AS c
+LEFT JOIN
+    FebSales AS f
+ON
+    c.order_id = f.orderID
+WHERE
+    f.Quantity > 2
+AND
+    length(f.orderID) = 6
+AND
+    f.orderID <> 'Order ID';
+    
+
+--List all the products sold in Los Angeles in February, and include how many of each were sold.
+
+SELECT
+    Product,
+    SUM(Quantity) AS Total_Sold
+FROM
+    FebSales
+WHERE
+    location
+LIKE
+    '%Los Angeles%'
+GROUP BY
+    Product;
